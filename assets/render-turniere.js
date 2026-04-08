@@ -1,10 +1,32 @@
 const turnierListContainer = document.getElementById("turnierList");
 const showMoreWrap = document.getElementById("turnierMoreWrap");
 
-if (turnierListContainer && typeof tournaments !== "undefined") {
-    turnierListContainer.innerHTML = tournaments.map((tournament, index) => {
+function getSortedTournaments() {
+    return [...tournaments].sort((a, b) => a.finished - b.finished);
+}
+
+function getPlayerOptions() {
+    if (typeof players === "undefined") return "";
+
+    return players.map((player) => `
+        <option value="${player.id}">
+            ${player.jerseyName} (${player.realName})
+        </option>
+    `).join("");
+}
+
+function renderTurnierePage() {
+    if (!turnierListContainer || typeof tournaments === "undefined") return;
+
+    const sortedTournaments = getSortedTournaments();
+
+    turnierListContainer.innerHTML = sortedTournaments.map((tournament, index) => {
         const isHidden = index >= 3 ? "hidden-turnier" : "visible";
         const number = index + 1;
+        const finishLabel = tournament.finished ? "Wieder öffnen" : "Turnier abschließen";
+        const placementInfo = tournament.finished && tournament.placement
+            ? `<p><strong>Platz:</strong> ${tournament.placement}.</p>`
+            : "";
 
         return `
             <article class="turnier-item ${isHidden}" data-tournament-id="${tournament.id}">
@@ -29,6 +51,7 @@ if (turnierListContainer && typeof tournaments !== "undefined") {
                             <p><strong>Datum:</strong> ${tournament.date}</p>
                             <p><strong>Ort:</strong> ${tournament.location}</p>
                             <p><strong>Status:</strong> ${tournament.statusDetail}</p>
+                            ${placementInfo}
                         </div>
 
                         <div>
@@ -39,13 +62,24 @@ if (turnierListContainer && typeof tournaments !== "undefined") {
                         </div>
                     </div>
 
+                    <div class="turnier-admin-box">
+                        <h4>Turnierstatus</h4>
+                        <p>${tournament.finished ? "Dieses Turnier ist abgeschlossen." : "Dieses Turnier ist noch aktiv."}</p>
+                        <button class="btn btn-secondary finish-tournament-btn" data-id="${tournament.id}" type="button">
+                            ${finishLabel}
+                        </button>
+                    </div>
+
                     <form class="turnier-form" data-form>
                         <h4>Für dieses Turnier eintragen</h4>
 
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="name${number}">Name</label>
-                                <input type="text" id="name${number}" name="name" placeholder="Dein Name" required>
+                                <label for="player${number}">Spieler</label>
+                                <select id="player${number}" name="playerId" required>
+                                    <option value="">Bitte wählen</option>
+                                    ${getPlayerOptions()}
+                                </select>
                             </div>
 
                             <div class="form-group">
@@ -67,7 +101,7 @@ if (turnierListContainer && typeof tournaments !== "undefined") {
     }).join("");
 
     if (showMoreWrap) {
-        if (tournaments.length <= 3) {
+        if (sortedTournaments.length <= 3) {
             showMoreWrap.innerHTML = "";
         } else {
             showMoreWrap.innerHTML = `
@@ -94,4 +128,51 @@ if (turnierListContainer && typeof tournaments !== "undefined") {
             });
         }
     }
+
+    initFinishButtons();
 }
+
+function initFinishButtons() {
+    const finishButtons = document.querySelectorAll(".finish-tournament-btn");
+
+    finishButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const tournamentId = button.dataset.id;
+            const tournament = tournaments.find(t => t.id === tournamentId);
+
+            if (!tournament) return;
+
+            if (!tournament.finished) {
+                const placementInput = prompt("Welchen Platz habt ihr gemacht? (z. B. 1, 2, 3)");
+
+                if (!placementInput) return;
+
+                const placement = parseInt(placementInput, 10);
+
+                if (Number.isNaN(placement) || placement < 1) {
+                    alert("Bitte eine gültige Platzierung eingeben.");
+                    return;
+                }
+
+                tournament.finished = true;
+                tournament.placement = placement;
+                tournament.status = "Abgeschlossen";
+                tournament.statusDetail = `Turnier beendet · ${placement}. Platz`;
+
+                saveTournamentMeta();
+                location.reload();
+            } else {
+                const confirmReset = confirm("Turnier wieder öffnen und Platzierung entfernen?");
+
+                if (!confirmReset) return;
+
+                tournament.finished = false;
+                tournament.placement = null;
+                saveTournamentMeta();
+                location.reload();
+            }
+        });
+    });
+}
+
+renderTurnierePage();

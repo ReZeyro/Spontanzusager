@@ -21,6 +21,7 @@
                     <li><a href="statistiken.html">Statistiken</a></li>
                     <li><a href="galerie.html">Galerie</a></li>
                     <li><a href="team.html">Team</a></li>
+                    <li><a href="live.html">Live</a></li>
                 </ul>
             </nav>
         </div>
@@ -68,16 +69,16 @@
                     <h3>Zahlen auf einen Blick</h3>
                     <div class="stats-snippet">
                         <div class="stat-item">
-                            <span class="stat-number">12</span>
+                            <span class="stat-number" id="homeStatTournaments">0</span>
                             <span class="stat-text">Turniere gespielt</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">3</span>
+                            <span class="stat-number" id="homeStatPodiums">0</span>
                             <span class="stat-text">Podestplätze</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">41</span>
-                            <span class="stat-text">Treffer</span>
+                            <span class="stat-number" id="homeStatGoals">0</span>
+                            <span class="stat-text">Tore gesamt</span>
                         </div>
                     </div>
                     <a href="statistiken.html" class="card-link">Alle Statistiken →</a>
@@ -85,11 +86,9 @@
 
                 <article class="preview-card">
                     <p class="card-label">Das Team</p>
-                    <h3>Wer wir sind</h3>
-                    <p>
-                        Hinter den Spontanzusagern steckt Teamgeist, Fußballliebe, Humor
-                        und natürlich spontane Zusagen.
-                    </p>
+                    <h3 id="homeTeamTitle">Lädt...</h3>
+                    <p id="homeTeamText">Lädt...</p>
+                    <p id="homeTeamExtra">Lädt...</p>
                     <a href="team.html" class="card-link">Zum Team →</a>
                 </article>
             </div>
@@ -98,10 +97,8 @@
         <section class="home-banner">
             <div class="banner-content">
                 <p class="small-label">Spontanzusager</p>
-                <h2>Fußball trifft Hobbyteam-Vibes</h2>
-                <p>
-                    Modern, chaotisch, motiviert — genau so darf die Seite wirken.
-                </p>
+                <h2 id="homeBannerTitle">Lädt...</h2>
+                <p id="homeBannerText">Lädt...</p>
             </div>
         </section>
     </main>
@@ -114,7 +111,9 @@
         </p>
     </footer>
 
+    <script src="assets/data.js"></script>
     <script src="assets/tournaments.js"></script>
     <script src="assets/render-home.js"></script>
+    <script type="module" src="assets/render-home-live.js"></script>
 </body>
 </html>

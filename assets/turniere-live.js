@@ -16,8 +16,8 @@ import {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-/* Turniere auf- und zuklappen */
 const turnierItems = document.querySelectorAll(".turnier-item");
+const registeredPlayersByTournament = new Map();
 
 turnierItems.forEach((item) => {
     const toggleButton = item.querySelector(".turnier-toggle");
@@ -37,7 +37,6 @@ turnierItems.forEach((item) => {
     });
 });
 
-/* Teilnehmer live laden + speichern + löschen */
 turnierItems.forEach((item) => {
     const tournamentId = item.dataset.tournamentId;
     const listElement = item.querySelector("[data-list]");
@@ -50,8 +49,10 @@ turnierItems.forEach((item) => {
 
     onSnapshot(participantsQuery, (snapshot) => {
         listElement.innerHTML = "";
+        const registeredIds = [];
 
         if (snapshot.empty) {
+            registeredPlayersByTournament.set(tournamentId, registeredIds);
             listElement.innerHTML = `<li><span>Noch niemand</span><span>–</span></li>`;
             return;
         }
@@ -60,12 +61,16 @@ turnierItems.forEach((item) => {
             const data = entry.data();
             const participantId = entry.id;
 
+            if (data.playerId) {
+                registeredIds.push(data.playerId);
+            }
+
             const li = document.createElement("li");
             li.classList.add("teilnehmer-eintrag");
 
             li.innerHTML = `
                 <div class="teilnehmer-info">
-                    <span>${data.name}</span>
+                    <span>${data.jerseyName} (${data.realName})</span>
                     <span>${data.position}</span>
                 </div>
                 <button type="button" class="delete-participant-btn">
@@ -76,7 +81,7 @@ turnierItems.forEach((item) => {
             const deleteButton = li.querySelector(".delete-participant-btn");
 
             deleteButton.addEventListener("click", async () => {
-                const confirmDelete = confirm(`${data.name} wirklich aus diesem Turnier entfernen?`);
+                const confirmDelete = confirm(`${data.jerseyName} wirklich aus diesem Turnier entfernen?`);
 
                 if (!confirmDelete) return;
 
@@ -90,23 +95,40 @@ turnierItems.forEach((item) => {
 
             listElement.appendChild(li);
         });
+
+        registeredPlayersByTournament.set(tournamentId, registeredIds);
     });
 
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        const nameInput = form.querySelector('input[name="name"]');
+        const playerSelect = form.querySelector('select[name="playerId"]');
         const positionSelect = form.querySelector('select[name="position"]');
 
-        const name = nameInput.value.trim();
+        const playerId = playerSelect.value;
         const position = positionSelect.value;
 
-        if (!name || !position) return;
+        if (!playerId || !position) return;
+
+        const player = players.find(p => p.id === playerId);
+
+        if (!player) return;
+
+        const alreadyRegistered = registeredPlayersByTournament.get(tournamentId)?.includes(playerId);
+
+        if (alreadyRegistered) {
+            alert("Dieser Spieler ist für das Turnier bereits eingetragen.");
+            return;
+        }
 
         try {
             await addDoc(participantsRef, {
-                name,
+                playerId: player.id,
+                realName: player.realName,
+                jerseyName: player.jerseyName,
                 position,
+                shots: 0,
+                goals: 0,
                 createdAt: serverTimestamp()
             });
 

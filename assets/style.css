@@ -1303,3 +1303,273 @@ a {
         width: 100%;
     }
 }
+
+/* TURNIER ADMIN */
+.turnier-admin-box {
+    margin-bottom: 22px;
+    padding: 22px;
+    border-radius: 22px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.turnier-admin-box h4 {
+    margin-bottom: 10px;
+}
+
+.turnier-admin-box p {
+    color: #d4eaec;
+    margin-bottom: 14px;
+}
+
+/* TEILNEHMER LISTE MIT DELETE */
+.teilnehmer-eintrag {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.teilnehmer-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    color: #eafcfd;
+}
+
+.delete-participant-btn {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffb3b3;
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: 0.2s ease;
+    white-space: nowrap;
+}
+
+.delete-participant-btn:hover {
+    background: rgba(255, 80, 80, 0.12);
+    border-color: rgba(255, 80, 80, 0.25);
+    color: #ffffff;
+}
+
+/* LIVE PAGE */
+.live-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.live-hero {
+    text-align: center;
+    padding: 40px 0 20px;
+}
+
+.live-hero h2 {
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    margin-bottom: 12px;
+}
+
+.live-intro {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #c5dfe2;
+    font-size: 1.05rem;
+}
+
+.live-controls-section,
+.live-current-section,
+.live-players-section {
+    margin-top: 30px;
+}
+
+.live-controls-card,
+.live-current-card {
+    padding: 24px;
+    border-radius: 26px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+.live-controls-card label {
+    display: block;
+    margin-bottom: 10px;
+    color: #dff8fa;
+    font-weight: 700;
+}
+
+.live-controls-card select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.05);
+    color: #ffffff;
+    font-size: 1rem;
+    outline: none;
+}
+
+.live-current-card h2 {
+    margin-bottom: 10px;
+}
+
+.live-current-card p:last-child {
+    color: #c8dde0;
+}
+
+.live-players-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.live-player-card {
+    padding: 24px;
+    border-radius: 26px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: 0.25s ease;
+}
+
+.live-player-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(81, 226, 235, 0.25);
+}
+
+.live-player-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.live-player-tag {
+    color: #7ce4ec;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.live-player-realname {
+    color: #c8dde0;
+    margin-top: 6px;
+}
+
+.live-player-score span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 90px;
+    min-height: 48px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.05);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.live-progress-wrap {
+    margin-bottom: 20px;
+}
+
+.live-progress-label {
+    display: flex;
+    justify-content: space-between;
+    color: #dff8fa;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.live-progress-bar {
+    width: 100%;
+    height: 16px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.live-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #24c8d1, #0d7f88);
+}
+
+.live-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.live-btn {
+    min-height: 46px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.2s ease;
+    background: rgba(255,255,255,0.05);
+    color: #ffffff;
+}
+
+.live-btn:hover {
+    transform: translateY(-2px);
+}
+
+.live-btn-goal:hover {
+    background: rgba(36, 200, 209, 0.18);
+    border-color: rgba(36, 200, 209, 0.35);
+}
+
+.live-btn-miss:hover {
+    background: rgba(255, 170, 0, 0.14);
+    border-color: rgba(255, 170, 0, 0.25);
+}
+
+.live-btn-reset:hover {
+    background: rgba(255, 80, 80, 0.12);
+    border-color: rgba(255, 80, 80, 0.25);
+}
+
+.live-empty-state {
+    padding: 30px;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.04);
+    color: #d6f0f2;
+    text-align: center;
+}
+
+/* RESPONSIVE FIXES */
+@media (max-width: 950px) {
+    .live-players-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .teilnehmer-eintrag,
+    .teilnehmer-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .delete-participant-btn {
+        width: 100%;
+    }
+
+    .live-player-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .live-actions {
+        grid-template-columns: 1fr;
+    }
+}
