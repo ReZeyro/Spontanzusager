@@ -5,9 +5,9 @@ const players = [
         jerseyName: "Steve"
     },
     {
-        id: "tobi",
-        realName: "Tobias Schneider",
-        jerseyName: "TOBI"
+        id: "nikola",
+        realName: "Nikola Gorgiev",
+        jerseyName: "Nikola"
     },
     {
         id: "alex",
