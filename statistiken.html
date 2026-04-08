@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiken - Spontanzusager</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <img src="assets/logo.png" alt="Logo Spontanzusager" class="logo">
+            <h1 class="team-name">Spontanzusager</h1>
+            <p class="team-subtitle">Elfmeter. Fußball. Hobby. Stimmung.</p>
+
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Startseite</a></li>
+                    <li><a href="turniere.html">Turniere</a></li>
+                    <li><a href="statistiken.html" class="active">Statistiken</a></li>
+                    <li><a href="galerie.html">Galerie</a></li>
+                    <li><a href="team.html">Team</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="stats-page">
+        <section class="stats-hero">
+            <p class="small-label">Statistiken</p>
+            <h2>Zahlen, Tore und Trefferquoten</h2>
+            <p class="stats-intro">
+                Hier seht ihr unsere wichtigsten Team- und Spielerstatistiken auf einen Blick.
+            </p>
+        </section>
+
+        <section class="stats-section">
+            <div class="section-headline">
+                <p class="small-label">Top-Torschützen</p>
+                <h2>Unsere Top 3</h2>
+            </div>
+
+            <div class="topscorer-grid" id="topscorerGrid"></div>
+        </section>
+
+        <section class="stats-section">
+            <div class="section-headline">
+                <p class="small-label">Teamstatistik</p>
+                <h2>Spontanzusager gesamt</h2>
+            </div>
+
+            <div class="team-stats-grid" id="teamStatsGrid"></div>
+        </section>
+
+        <section class="stats-section">
+            <div class="section-headline">
+                <p class="small-label">Spielerstatistik</p>
+                <h2>Alle Spieler im Überblick</h2>
+            </div>
+
+            <div class="player-stats-list" id="playerStatsList"></div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>
+            © 2026 Spontanzusager ·
+            <a href="datenschutz.html">Datenschutz</a> ·
+            <a href="impressum.html">Impressum</a>
+        </p>
+    </footer>
+
+    <script src="assets/data.js"></script>
+    <script src="assets/script.js"></script>
+</body>
+</html>
