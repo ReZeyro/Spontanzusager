@@ -19,6 +19,7 @@ const db = getFirestore(app);
 const turnierItems = document.querySelectorAll(".turnier-item");
 const registeredPlayersByTournament = new Map();
 
+/* Aktive Turniere: Aufklappen */
 turnierItems.forEach((item) => {
     const toggleButton = item.querySelector(".turnier-toggle");
 
@@ -37,6 +38,7 @@ turnierItems.forEach((item) => {
     });
 });
 
+/* Aktive Turniere: Teilnehmer laden + speichern + löschen */
 turnierItems.forEach((item) => {
     const tournamentId = item.dataset.tournamentId;
     const listElement = item.querySelector("[data-list]");
@@ -110,14 +112,14 @@ turnierItems.forEach((item) => {
 
         if (!playerId || !position) return;
 
-        const player = players.find(p => p.id === playerId);
+        const player = players.find((p) => p.id === playerId);
 
         if (!player) return;
 
         const alreadyRegistered = registeredPlayersByTournament.get(tournamentId)?.includes(playerId);
 
         if (alreadyRegistered) {
-            alert("Dieser Spieler ist für das Turnier bereits eingetragen.");
+            alert("Dieser Spieler ist für dieses Turnier bereits eingetragen.");
             return;
         }
 
@@ -137,5 +139,49 @@ turnierItems.forEach((item) => {
             console.error("Fehler beim Speichern:", error);
             alert("Eintrag konnte nicht gespeichert werden.");
         }
+    });
+});
+
+/* Abgeschlossene Turniere: Stats laden */
+const finishedTournaments = tournaments.filter((tournament) => tournament.finished);
+
+finishedTournaments.forEach((tournament) => {
+    const statsElement = document.getElementById(`stats-${tournament.id}`);
+    if (!statsElement) return;
+
+    const participantsRef = collection(db, "tournaments", tournament.id, "participants");
+
+    onSnapshot(participantsRef, (snapshot) => {
+        let totalParticipants = 0;
+        let totalShots = 0;
+        let totalGoals = 0;
+
+        snapshot.forEach((entry) => {
+            const data = entry.data();
+            totalParticipants += 1;
+            totalShots += data.shots || 0;
+            totalGoals += data.goals || 0;
+        });
+
+        const quote = totalShots > 0 ? Math.round((totalGoals / totalShots) * 100) : 0;
+
+        statsElement.innerHTML = `
+            <div class="finished-stat-box">
+                <span>Spieler</span>
+                <strong>${totalParticipants}</strong>
+            </div>
+            <div class="finished-stat-box">
+                <span>Schüsse</span>
+                <strong>${totalShots}</strong>
+            </div>
+            <div class="finished-stat-box">
+                <span>Tore</span>
+                <strong>${totalGoals}</strong>
+            </div>
+            <div class="finished-stat-box">
+                <span>Quote</span>
+                <strong>${quote}%</strong>
+            </div>
+        `;
     });
 });
