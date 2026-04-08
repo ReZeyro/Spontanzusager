@@ -1574,25 +1574,26 @@ a {
     }
 }
 
-/* SELECT / DROPDOWN FIX */
 .form-group select,
 .live-controls-card select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-color: #102126;
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: #102126;
     color: #ffffff;
+    font-size: 1rem;
+    outline: none;
 }
 
-/* Optionen im aufgeklappten Menü */
+.form-group select:focus,
+.live-controls-card select:focus {
+    border-color: rgba(58, 220, 230, 0.55);
+    box-shadow: 0 0 0 4px rgba(58, 220, 230, 0.08);
+}
+
 .form-group select option,
 .live-controls-card select option {
-    background-color: #102126;
+    background: #102126;
     color: #ffffff;
-}
-
-/* Placeholder-Option */
-.form-group select option[value=""],
-.live-controls-card select option[value=""] {
-    color: #b8d6d9;
 }
