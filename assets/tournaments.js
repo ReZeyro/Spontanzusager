@@ -1,17 +1,15 @@
 const defaultTournaments = [
     {
-        id: "50. Stetten Turnier",
-        status: "Nächstes Turnier",
-        title: "50. Stetten Turnier",
-        date: "22.05.2026",
-        location: "Stetten",
+        id: "sommer-cup-moessingen",
+        title: "Sommer Cup Mössingen",
+        date: "12.07.2026",
+        location: "Mössingen",
         statusDetail: "Anmeldung offen",
         finished: false,
         placement: null
     },
     {
         id: "dorfpokal-belsen",
-        status: "Geplant",
         title: "Dorfpokal Belsen",
         date: "26.07.2026",
         location: "Belsen",
@@ -21,7 +19,6 @@ const defaultTournaments = [
     },
     {
         id: "nachtturnier-rottenburg",
-        status: "Vorgemerkt",
         title: "Nachtturnier Rottenburg",
         date: "09.08.2026",
         location: "Rottenburg",

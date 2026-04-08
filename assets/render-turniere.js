@@ -30,6 +30,20 @@ function getFinishedTournaments() {
         .sort((a, b) => parseGermanDate(b.date) - parseGermanDate(a.date));
 }
 
+function getTournamentAutoStatus(tournamentId) {
+    const tournament = tournaments.find((t) => t.id === tournamentId);
+
+    if (!tournament) return "Geplant";
+    if (tournament.finished) return "Abgeschlossen";
+
+    const activeTournaments = getActiveTournaments();
+    const index = activeTournaments.findIndex((t) => t.id === tournamentId);
+
+    if (index === 0) return "Nächstes Turnier";
+    if (index === 1) return "Ausstehend";
+    return "Geplant";
+}
+
 function renderActiveTurniere() {
     if (!turnierListContainer) return;
 
@@ -48,13 +62,14 @@ function renderActiveTurniere() {
     turnierListContainer.innerHTML = activeTournaments.map((tournament, index) => {
         const isHidden = index >= 3 ? "hidden-turnier" : "visible";
         const number = index + 1;
+        const autoStatus = getTournamentAutoStatus(tournament.id);
 
         return `
             <article class="turnier-item ${isHidden}" data-tournament-id="${tournament.id}">
                 <button class="turnier-toggle" type="button">
                     <div class="turnier-main">
                         <div>
-                            <p class="turnier-status">${tournament.status}</p>
+                            <p class="turnier-status">${autoStatus}</p>
                             <h3>${tournament.title}</h3>
                         </div>
                         <div class="turnier-meta">
