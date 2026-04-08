@@ -15,22 +15,35 @@ const homeTeamExtra = document.getElementById("homeTeamExtra");
 const homeBannerTitle = document.getElementById("homeBannerTitle");
 const homeBannerText = document.getElementById("homeBannerText");
 
+function parseGermanDate(dateString) {
+    const [day, month, year] = dateString.split(".");
+    return new Date(`${year}-${month}-${day}T00:00:00`);
+}
+
 if (
     typeof tournaments !== "undefined" &&
     tournaments.length > 0 &&
     homeTournamentTitle
 ) {
-    const sortedTournaments = [...tournaments].sort((a, b) => a.finished - b.finished);
-    const nextTournament = sortedTournaments[0];
+    const nextActiveTournament = [...tournaments]
+        .filter((tournament) => !tournament.finished)
+        .sort((a, b) => parseGermanDate(a.date) - parseGermanDate(b.date))[0];
 
-    homeTournamentStatus.textContent = nextTournament.status;
-    homeTournamentTitle.textContent = nextTournament.title;
-    homeTournamentLocation.textContent = `Ort: ${nextTournament.location}`;
-    homeTournamentDate.textContent = `Datum: ${nextTournament.date}`;
-    homeTournamentState.textContent = `Status: ${nextTournament.statusDetail}`;
-    homeTournamentText.textContent = nextTournament.finished
-        ? "Dieses Turnier ist abgeschlossen."
-        : "Hier wird automatisch das nächste aktive Turnier aus deiner zentralen Turnierliste angezeigt.";
+    if (nextActiveTournament) {
+        homeTournamentStatus.textContent = nextActiveTournament.status;
+        homeTournamentTitle.textContent = nextActiveTournament.title;
+        homeTournamentLocation.textContent = `Ort: ${nextActiveTournament.location}`;
+        homeTournamentDate.textContent = `Datum: ${nextActiveTournament.date}`;
+        homeTournamentState.textContent = `Status: ${nextActiveTournament.statusDetail}`;
+        homeTournamentText.textContent = "Hier wird automatisch das nächste aktive Turnier nach Datum angezeigt.";
+    } else {
+        homeTournamentStatus.textContent = "Kein aktives Turnier";
+        homeTournamentTitle.textContent = "Aktuell nichts offen";
+        homeTournamentLocation.textContent = "Ort: –";
+        homeTournamentDate.textContent = "Datum: –";
+        homeTournamentState.textContent = "Status: Alle Turniere abgeschlossen";
+        homeTournamentText.textContent = "Sobald ein neues aktives Turnier eingetragen ist, erscheint es hier automatisch.";
+    }
 }
 
 if (
@@ -38,9 +51,9 @@ if (
     homeStatTournaments &&
     homeStatPodiums
 ) {
-    const finishedTournaments = tournaments.filter(t => t.finished);
+    const finishedTournaments = tournaments.filter((t) => t.finished);
     const podiums = finishedTournaments.filter(
-        t => t.placement === 1 || t.placement === 2 || t.placement === 3
+        (t) => t.placement === 1 || t.placement === 2 || t.placement === 3
     ).length;
 
     homeStatTournaments.textContent = finishedTournaments.length;
@@ -55,7 +68,7 @@ if (
     homeTeamExtra
 ) {
     const playerCount = players.length;
-    const jerseyPreview = players.slice(0, 3).map(player => player.jerseyName).join(", ");
+    const jerseyPreview = players.slice(0, 3).map((player) => player.jerseyName).join(", ");
 
     homeTeamTitle.textContent = "Wer wir sind";
     homeTeamText.textContent = teamInfo.aboutText;

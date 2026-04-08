@@ -1885,3 +1885,91 @@ a {
         grid-template-columns: 1fr;
     }
 }
+
+/* TOP PERFORMANCE IM TURNIER-ARCHIV */
+.finished-performance-box {
+    margin: 18px 0;
+    padding: 18px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.finished-performance-label {
+    color: #7ce4ec;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.finished-performance-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+.finished-performance-top h4 {
+    font-size: 1.15rem;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+.finished-performance-top p {
+    color: #c8dde0;
+}
+
+.finished-performance-quote {
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.05);
+    color: #7ce4ec;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.finished-performance-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.finished-performance-stat {
+    padding: 14px 12px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.04);
+    text-align: center;
+}
+
+.finished-performance-stat span {
+    display: block;
+    color: #9fd1d6;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.finished-performance-stat strong {
+    display: block;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.finished-performance-empty {
+    color: #c8dde0;
+}
+
+@media (max-width: 600px) {
+    .finished-performance-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .finished-performance-stats {
+        grid-template-columns: 1fr;
+    }
+}

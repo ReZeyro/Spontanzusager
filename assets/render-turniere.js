@@ -3,6 +3,11 @@ const showMoreWrap = document.getElementById("turnierMoreWrap");
 const finishedTurniereList = document.getElementById("finishedTurniereList");
 const toggleFinishedBtn = document.getElementById("toggleFinishedBtn");
 
+function parseGermanDate(dateString) {
+    const [day, month, year] = dateString.split(".");
+    return new Date(`${year}-${month}-${day}T00:00:00`);
+}
+
 function getPlayerOptions() {
     if (typeof players === "undefined") return "";
 
@@ -14,11 +19,15 @@ function getPlayerOptions() {
 }
 
 function getActiveTournaments() {
-    return tournaments.filter((tournament) => !tournament.finished);
+    return tournaments
+        .filter((tournament) => !tournament.finished)
+        .sort((a, b) => parseGermanDate(a.date) - parseGermanDate(b.date));
 }
 
 function getFinishedTournaments() {
-    return tournaments.filter((tournament) => tournament.finished);
+    return tournaments
+        .filter((tournament) => tournament.finished)
+        .sort((a, b) => parseGermanDate(b.date) - parseGermanDate(a.date));
 }
 
 function renderActiveTurniere() {
@@ -169,6 +178,10 @@ function renderFinishedTurniere() {
                     <span>Lädt…</span>
                     <strong>…</strong>
                 </div>
+            </div>
+
+            <div class="finished-performance-box" id="performance-${tournament.id}">
+                Lädt Top Performance...
             </div>
 
             <div class="finished-actions">

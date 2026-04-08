@@ -142,12 +142,14 @@ turnierItems.forEach((item) => {
     });
 });
 
-/* Abgeschlossene Turniere: Stats laden */
+/* Abgeschlossene Turniere: Stats + Top Performance laden */
 const finishedTournaments = tournaments.filter((tournament) => tournament.finished);
 
 finishedTournaments.forEach((tournament) => {
     const statsElement = document.getElementById(`stats-${tournament.id}`);
-    if (!statsElement) return;
+    const performanceElement = document.getElementById(`performance-${tournament.id}`);
+
+    if (!statsElement || !performanceElement) return;
 
     const participantsRef = collection(db, "tournaments", tournament.id, "participants");
 
@@ -155,9 +157,12 @@ finishedTournaments.forEach((tournament) => {
         let totalParticipants = 0;
         let totalShots = 0;
         let totalGoals = 0;
+        const entries = [];
 
         snapshot.forEach((entry) => {
             const data = entry.data();
+            entries.push(data);
+
             totalParticipants += 1;
             totalShots += data.shots || 0;
             totalGoals += data.goals || 0;
@@ -181,6 +186,52 @@ finishedTournaments.forEach((tournament) => {
             <div class="finished-stat-box">
                 <span>Quote</span>
                 <strong>${quote}%</strong>
+            </div>
+        `;
+
+        if (entries.length === 0) {
+            performanceElement.innerHTML = `
+                <div class="finished-performance-empty">
+                    Noch keine Performance-Daten vorhanden.
+                </div>
+            `;
+            return;
+        }
+
+        const bestEntry = [...entries]
+            .map((entry) => ({
+                ...entry,
+                quote: (entry.shots || 0) > 0
+                    ? Math.round(((entry.goals || 0) / (entry.shots || 0)) * 100)
+                    : 0
+            }))
+            .sort((a, b) => {
+                if ((b.goals || 0) !== (a.goals || 0)) {
+                    return (b.goals || 0) - (a.goals || 0);
+                }
+
+                return (b.quote || 0) - (a.quote || 0);
+            })[0];
+
+        performanceElement.innerHTML = `
+            <p class="finished-performance-label">Top Performance</p>
+            <div class="finished-performance-top">
+                <div>
+                    <h4>${bestEntry.jerseyName}</h4>
+                    <p>${bestEntry.realName}</p>
+                </div>
+                <span class="finished-performance-quote">${bestEntry.quote}%</span>
+            </div>
+
+            <div class="finished-performance-stats">
+                <div class="finished-performance-stat">
+                    <span>Tore</span>
+                    <strong>${bestEntry.goals || 0}</strong>
+                </div>
+                <div class="finished-performance-stat">
+                    <span>Schüsse</span>
+                    <strong>${bestEntry.shots || 0}</strong>
+                </div>
             </div>
         `;
     });
