@@ -52,15 +52,13 @@
 
             <div class="preview-grid">
                 <article class="preview-card">
-                    <p class="card-label">Nächstes Turnier</p>
-                    <h3>Sommer Cup Mössingen</h3>
-                    <p>
-                        Hier kann später euer nächstes Turnier mit Datum, Ort und Status stehen.
-                    </p>
+                    <p class="card-label" id="homeTournamentStatus">Nächstes Turnier</p>
+                    <h3 id="homeTournamentTitle">Lädt...</h3>
+                    <p id="homeTournamentText">Hier wird automatisch das nächste Turnier angezeigt.</p>
                     <ul class="preview-list">
-                        <li>Ort: folgt</li>
-                        <li>Datum: folgt</li>
-                        <li>Status: in Planung</li>
+                        <li id="homeTournamentLocation">Ort: Lädt...</li>
+                        <li id="homeTournamentDate">Datum: Lädt...</li>
+                        <li id="homeTournamentState">Status: Lädt...</li>
                     </ul>
                     <a href="turniere.html" class="card-link">Mehr zu Turnieren →</a>
                 </article>
@@ -109,12 +107,14 @@
     </main>
 
     <footer class="site-footer">
-    <p>
-        © 2026 Spontanzusager · 
-        <a href="datenschutz.html">Datenschutz</a> · 
-        <a href="impressum.html">Impressum</a>
-    </p>
-</footer>
+        <p>
+            © 2026 Spontanzusager ·
+            <a href="datenschutz.html">Datenschutz</a> ·
+            <a href="impressum.html">Impressum</a>
+        </p>
+    </footer>
 
+    <script src="assets/tournaments.js"></script>
+    <script src="assets/render-home.js"></script>
 </body>
 </html>

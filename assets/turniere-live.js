@@ -68,7 +68,7 @@ turnierItems.forEach((item) => {
                     <span>${data.name}</span>
                     <span>${data.position}</span>
                 </div>
-                <button type="button" class="delete-participant-btn" data-doc-id="${participantId}">
+                <button type="button" class="delete-participant-btn">
                     Entfernen
                 </button>
             `;
