@@ -1573,3 +1573,26 @@ a {
         grid-template-columns: 1fr;
     }
 }
+
+/* SELECT / DROPDOWN FIX */
+.form-group select,
+.live-controls-card select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #102126;
+    color: #ffffff;
+}
+
+/* Optionen im aufgeklappten Menü */
+.form-group select option,
+.live-controls-card select option {
+    background-color: #102126;
+    color: #ffffff;
+}
+
+/* Placeholder-Option */
+.form-group select option[value=""],
+.live-controls-card select option[value=""] {
+    color: #b8d6d9;
+}
