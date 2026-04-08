@@ -1,8 +1,8 @@
 const players = [
     {
-        id: "kevin",
-        realName: "Kevin Müller",
-        jerseyName: "K3V1N"
+        id: "steve",
+        realName: "Steve Scheifen",
+        jerseyName: "Steve"
     },
     {
         id: "tobi",

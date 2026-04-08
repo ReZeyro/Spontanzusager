@@ -1,10 +1,10 @@
 const defaultTournaments = [
     {
-        id: "sommer-cup-moessingen",
+        id: "50. Stetten Turnier",
         status: "Nächstes Turnier",
-        title: "Sommer Cup Mössingen",
-        date: "12.07.2026",
-        location: "Mössingen",
+        title: "50. Stetten Turnier",
+        date: "22.05.2026",
+        location: "Stetten",
         statusDetail: "Anmeldung offen",
         finished: false,
         placement: null
