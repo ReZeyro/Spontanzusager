@@ -13,7 +13,6 @@ const db = getFirestore(app);
 const topscorerGrid = document.getElementById("topscorerGrid");
 const teamStatsGrid = document.getElementById("teamStatsGrid");
 const playerStatsList = document.getElementById("playerStatsList");
-const performanceGrid = document.getElementById("performanceGrid");
 
 const tournamentSnapshots = new Map();
 
@@ -37,11 +36,8 @@ function createEmptyPlayerMap() {
 function renderStats() {
     const playerMap = createEmptyPlayerMap();
     let totalGoals = 0;
-    const performanceEntries = [];
 
-    tournamentSnapshots.forEach((entries, tournamentId) => {
-        const tournament = tournaments.find((t) => t.id === tournamentId);
-
+    tournamentSnapshots.forEach((entries) => {
         entries.forEach((entry) => {
             const current = playerMap.get(entry.playerId);
 
@@ -53,33 +49,6 @@ function renderStats() {
 
             totalGoals += entry.goals || 0;
         });
-
-        if (tournament && tournament.finished && entries.length > 0) {
-            const bestEntry = [...entries]
-                .map((entry) => ({
-                    ...entry,
-                    quote: (entry.shots || 0) > 0
-                        ? Math.round(((entry.goals || 0) / (entry.shots || 0)) * 100)
-                        : 0
-                }))
-                .sort((a, b) => {
-                    if ((b.goals || 0) !== (a.goals || 0)) {
-                        return (b.goals || 0) - (a.goals || 0);
-                    }
-
-                    return (b.quote || 0) - (a.quote || 0);
-                })[0];
-
-            performanceEntries.push({
-                tournamentTitle: tournament.title,
-                placement: tournament.placement,
-                jerseyName: bestEntry.jerseyName,
-                realName: bestEntry.realName,
-                goals: bestEntry.goals || 0,
-                shots: bestEntry.shots || 0,
-                quote: bestEntry.quote || 0
-            });
-        }
     });
 
     const playerStats = [...playerMap.values()].map((player) => ({
@@ -147,48 +116,6 @@ function renderStats() {
                 <span class="team-stat-label">Preisgeld frei pflegbar</span>
             </article>
         `;
-    }
-
-    if (performanceGrid) {
-        if (performanceEntries.length === 0) {
-            performanceGrid.innerHTML = `
-                <div class="turnier-empty-state">
-                    Noch keine abgeschlossenen Turniere mit Spielerdaten vorhanden.
-                </div>
-            `;
-        } else {
-            performanceGrid.innerHTML = performanceEntries.map((entry) => `
-                <article class="performance-card">
-                    <div class="performance-header">
-                        <h3>${entry.tournamentTitle}</h3>
-                        <span class="performance-placement">
-                            ${entry.placement ? `${entry.placement}. Platz` : "–"}
-                        </span>
-                    </div>
-
-                    <div class="performance-player">
-                        <p class="performance-label">Top Performance</p>
-                        <h4>${entry.jerseyName}</h4>
-                        <p>${entry.realName}</p>
-                    </div>
-
-                    <div class="performance-stats">
-                        <div class="performance-stat-box">
-                            <span>Tore</span>
-                            <strong>${entry.goals}</strong>
-                        </div>
-                        <div class="performance-stat-box">
-                            <span>Schüsse</span>
-                            <strong>${entry.shots}</strong>
-                        </div>
-                        <div class="performance-stat-box">
-                            <span>Quote</span>
-                            <strong>${entry.quote}%</strong>
-                        </div>
-                    </div>
-                </article>
-            `).join("");
-        }
     }
 
     if (playerStatsList) {
