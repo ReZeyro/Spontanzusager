@@ -1,31 +1,23 @@
 const defaultTournaments = [
     {
-        id: "sommer-cup-moessingen",
-        title: "Sommer Cup Mössingen",
-        date: "12.07.2026",
-        location: "Mössingen",
-        statusDetail: "Anmeldung offen",
+        id: 1,
+        title: "Ofterdingen",
+        date: "14.05.2026",
+        location: "Ofterdingen",
+        statusDetail: "angemeldet",
         finished: false,
         placement: null
     },
     {
-        id: "dorfpokal-belsen",
-        title: "Dorfpokal Belsen",
-        date: "26.07.2026",
-        location: "Belsen",
-        statusDetail: "Team wird gesammelt",
+        id: 2,
+        title: "Stetten",
+        date: "22.05.2026",
+        location: "Stetten",
+        statusDetail: "angemeldet",
         finished: false,
         placement: null
     },
-    {
-        id: "nachtturnier-rottenburg",
-        title: "Nachtturnier Rottenburg",
-        date: "09.08.2026",
-        location: "Rottenburg",
-        statusDetail: "Rückmeldungen laufen",
-        finished: false,
-        placement: null
-    }
+
 ];
 
 const savedTournamentMeta = JSON.parse(localStorage.getItem("tournamentMeta") || "{}");

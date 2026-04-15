@@ -10,19 +10,19 @@ const players = [
         jerseyName: "Nikola"
     },
     {
+        id: "cetin",
+        realName: "Cetin Özdemir",
+        jerseyName: "Der Echte"
+    },
+    {
+        id: "stefan",
+        realName: "Stefan Benzel",
+        jerseyName: ""
+    },
+    {
         id: "alex",
-        realName: "Alex Becker",
-        jerseyName: "ALEX"
-    },
-    {
-        id: "marvin",
-        realName: "Marvin Koch",
-        jerseyName: "MARV"
-    },
-    {
-        id: "chris",
-        realName: "Chris Weber",
-        jerseyName: "CR7"
+        realName: "Alex ",
+        jerseyName: ""
     }
 ];
 
